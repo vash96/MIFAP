@@ -1,13 +1,17 @@
 #!/bin/bash
 
 RATES=(0.84 0.89 0.94 0.99)
+AMPLIFIED=(84 89 94 99)
 ACCEPTED=(100 200 500 1000 2000 5000 10000 20000 50000)
 
 TOTAL=324
 DONE=0
 
-for COOLING_RATE in ${RATES[@]}
+for rate_i in 0 1 2 3
 do
+    COOLING_RATE=${RATES[$rate_i]}
+    AMPLIFIED_RATE=${AMPLIFIED[$rate_i]}
+
     for NEIGHBORS_ACCEPTED in ${ACCEPTED[@]}
     do
         for INSTANCE in `ls input`
@@ -34,7 +38,7 @@ do
                             --ExchangeSA::neighbors_accepted $NEIGHBORS_ACCEPTED \
                             --ExchangeSA::cooling_rate $COOLING_RATE \
                             --MySolver::timeout 300.0 \
-                            > output/SA/${COOLING_RATE}_${NEIGHBORS_ACCEPTED}/${NAME}/${TEST}.txt &
+                            > output/SA/${AMPLIFIED_RATE}_${NEIGHBORS_ACCEPTED}/${NAME}/${TEST}.txt &
                 done
 
                 echo "Waiting..."
