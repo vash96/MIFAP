@@ -6,8 +6,8 @@ SOURCE_FILES = $(wildcard $(SOURCE_FOLDER)/*.cc)
 OBJECT_FILES = $(SOURCE_FILES:.cc=.o)
 DEPENDENCIES = $(OBJECT_FILES:.o=.d)
 
-FLAGS = -std=c++17 -Wall -Wfatal-errors -O3
-# FLAGS = -std=c++17 -DNDEBUG -O3
+# FLAGS = -std=c++17 -Wall -Wfatal-errors -O3
+FLAGS = -std=c++17 -DNDEBUG -O3
 CXXFLAGS = -MMD -I$(EASYLOCAL)/include $(FLAGS)
 LINKOPTS = -lboost_program_options -pthread
 

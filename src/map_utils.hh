@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 /**
  * Wraps a mapping from parametric objects to integer ids with knowledge of inverse mapping
  **/

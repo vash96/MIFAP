@@ -82,7 +82,7 @@ int main(int argc, const char** argv)
     auto solution = solver.Solve();
     cout << "Elapsed time: " << solution.running_time << endl;
     cout << "Cost: " << solution.cost << endl;
-    cout << "In " << solver.GetRunner()->Iteration() << endl;
+    cout << "In " << solver.GetRunner()->Iteration() << " iterations" << endl;
 
     return 0;
 }
