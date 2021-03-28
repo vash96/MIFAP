@@ -12,12 +12,29 @@ do
     do
         for INSTANCE in `ls input`
         do
+            echo "=========================================="
+            echo "Testing ${INSTANCE}..."
+            echo "Cooling rate: ${COOLING_RATE}"
+            echo "Neighbors accepted: ${NEIGHBORS_ACCEPTED}"
+            echo "=========================================="
+
             for BATCH in 1 2
             do
                 echo "Doing batch $BATCH..."
                 for i in 1 2 3 4 5
                 do
-                    
+                    NAME=`basename $INSTANCE .json`
+                    TEST=$(((${BATCH} - 1) * 5 + ${i}))
+
+                    ./main --main::instance input/$INSTANCE \
+                            --main::method SA \
+                            --ExchangeSA::min_temperature 0.1 \
+                            --ExchangeSA::compute_start_temperature-enable \
+                            --ExchangeSA::neighbors_sampled 100000 \
+                            --ExchangeSA::neighbors_accepted $NEIGHBORS_ACCEPTED \
+                            --ExchangeSA::cooling_rate $COOLING_RATE \
+                            --MySolver::timeout 300.0 \
+                            > output/SA/${COOLING_RATE}_${NEIGHBORS_ACCEPTED}/${NAME}/${TEST}.txt &
                 done
 
                 echo "Waiting..."
@@ -30,5 +47,6 @@ do
         echo "============================="
         echo "[Done/Total] = [$DONE/$TOTAL]"
         echo "============================="
+        echo ""
     done
 done
