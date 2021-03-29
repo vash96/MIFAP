@@ -30,6 +30,10 @@ do
                     NAME=`basename $INSTANCE .json`
                     TEST=$(((${BATCH} - 1) * 5 + ${i}))
 
+                    DIR=output/SA/${AMPLIFIED_RATE}_${NEIGHBORS_ACCEPTED}/${NAME}
+
+                    mkdir -p ${DIR}
+                    
                     ./main --main::instance input/$INSTANCE \
                             --main::method SA \
                             --ExchangeSA::min_temperature 0.1 \
@@ -38,7 +42,7 @@ do
                             --ExchangeSA::neighbors_accepted $NEIGHBORS_ACCEPTED \
                             --ExchangeSA::cooling_rate $COOLING_RATE \
                             --MySolver::timeout 300.0 \
-                            > output/SA/${AMPLIFIED_RATE}_${NEIGHBORS_ACCEPTED}/${NAME}/${TEST}.txt &
+                            > ${DIR}/${TEST}.txt &
                 done
 
                 echo "Waiting..."
