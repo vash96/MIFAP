@@ -48,7 +48,7 @@ do
                                 --main::method ${METHOD} \
                                 --ExchangeTS::max_idle_iterations -1 \
                                 --ExchangeTS::max_tenure ${MAX_TENURE} \
-                                --ExchangeSA::min_tenure ${MIN_TENURE} \
+                                --ExchangeTS::min_tenure ${MIN_TENURE} \
                                 --MySolver::timeout 300.0 \
                                 > ${DIR}/${TEST}.txt &
                     done
@@ -66,6 +66,5 @@ do
             echo ""
 
         done
-
     done
 done
