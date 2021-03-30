@@ -1,0 +1,3 @@
+Elapsed time: 300.6
+Cost: 3.61852e+06 (viol: 3618, obj: 523.82, comps: {3618, 523.82})
+In 37 iterations
