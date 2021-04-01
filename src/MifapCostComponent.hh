@@ -31,6 +31,8 @@ protected:
 
 };
 
+////////////////////////////////////////////////////////////////////////////
+
 class InterferenceCC : public CostComponent<MifapInput, MifapState, double> {
 public:
     InterferenceCC(const MifapInput & in)
