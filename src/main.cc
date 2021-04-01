@@ -26,11 +26,6 @@ int main(int argc, const char** argv)
         return 1;
     }
 
-    if(not method.IsSet()) {
-        cerr << "Missing method: --main::method <TS|SA>" << endl;
-        return 1;
-    }
-
 
     // data
     MifapInput in(instance);
@@ -62,18 +57,29 @@ int main(int argc, const char** argv)
     
     SimulatedAnnealing<MifapInput, MifapState, MifapExchange, DefaultCostStructure<double>> esa(in, sm, enexp, "ExchangeSA");
 
+    // Tester
+    Tester<MifapInput, MifapOutput, MifapState, DefaultCostStructure<double>> tester(in, sm, outm);
+    MoveTester<MifapInput, MifapOutput, MifapState, MifapExchange, DefaultCostStructure<double>> move_tester(in, sm, outm, enexp, "ExchangeMove", tester);
+    move_tester.SetTolerance(1e-4);
 
 
 
     // Solver
     SimpleLocalSearch<MifapInput, MifapOutput, MifapState, DefaultCostStructure<double>> solver(in, sm, outm, "MySolver");
-    
-    if(method == string("TS")) {
+
+    if(not method.IsSet()) {
+        CommandLineParameters::Parse(argc, argv);
+
+        tester.RunMainMenu();
+
+        return 0;
+
+    }else if(method == string("TS")) {
         solver.SetRunner(ets);
     }else if(method == string("SA")) {
         solver.SetRunner(esa);
     }else {
-        cerr << "Error: invalid methods are 'TS' or 'SA'" << endl;
+        cerr << "Error: valid methods are 'TS' or 'SA'" << endl;
         return 1;
     }
 
